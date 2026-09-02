@@ -1,11 +1,49 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { supabase } from '@/lib/supabase';
 
 export default function PortalClient({ initialMenus, initialSettings }: any) {
   const [searchQuery, setSearchQuery] = useState('');
+  
+  // Realtime State
+  const [menus, setMenus] = useState(initialMenus);
+  const [settings, setSettings] = useState(initialSettings);
+  
+  // Realtime Listener
+  useEffect(() => {
+    const fetchLatestData = async () => {
+      console.log("Realtime event detected! Fetching fresh data...");
+      const { data: m } = await supabase.from('menus').select('*').order('order_index', { ascending: true });
+      const { data: sm } = await supabase.from('submenus').select('*').order('order_index', { ascending: true });
+      const { data: s } = await supabase.from('portal_settings').select('*').single();
+      
+      if (m && sm) {
+        const formattedData = m.map(menu => ({
+          ...menu,
+          submenus: sm.filter(sub => sub.menu_id === menu.id)
+        }));
+        setMenus(formattedData);
+      }
+      if (s) {
+        setSettings(s);
+      }
+    };
 
-  const filteredMenus = initialMenus
+    // Subscribe to all changes in the 3 tables
+    const channel = supabase
+      .channel('schema-db-changes')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'menus' }, fetchLatestData)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'submenus' }, fetchLatestData)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'portal_settings' }, fetchLatestData)
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
+  const filteredMenus = menus
     .filter((menu: any) => menu.is_active !== false) // Exclude inactive main menus
     .map((menu: any) => {
       if (menu.submenus) {
@@ -28,7 +66,7 @@ export default function PortalClient({ initialMenus, initialSettings }: any) {
       <div className="cyber-grid"></div>
 
       {/* Broadcast Banner */}
-      {initialSettings.broadcast_active && initialSettings.broadcast_text && (
+      {settings.broadcast_active && settings.broadcast_text && (
         <div style={{
           width: '100%',
           background: 'var(--accent-primary)',
@@ -49,11 +87,11 @@ export default function PortalClient({ initialMenus, initialSettings }: any) {
               display: 'inline-block',
               whiteSpace: 'nowrap',
               animation: 'marquee linear infinite',
-              animationDuration: `${Math.max(20, (initialSettings.broadcast_text?.length || 0) * 0.3)}s`,
+              animationDuration: `${Math.max(20, (settings.broadcast_text?.length || 0) * 0.3)}s`,
               fontWeight: 500,
               letterSpacing: '1px'
             }}>
-              {initialSettings.broadcast_text} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {initialSettings.broadcast_text} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {initialSettings.broadcast_text}
+              {settings.broadcast_text} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {settings.broadcast_text} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {settings.broadcast_text}
             </div>
           </div>
           <style dangerouslySetInnerHTML={{__html: `
@@ -66,8 +104,8 @@ export default function PortalClient({ initialMenus, initialSettings }: any) {
       )}
       
       <div className="portal-header animate-up delay-1">
-        <h1>{initialSettings.title} <span>{initialSettings.highlight}</span></h1>
-        <p>{initialSettings.subtitle}</p>
+        <h1>{settings.title} <span>{settings.highlight}</span></h1>
+        <p>{settings.subtitle}</p>
         
         <div className="search-box">
           <input 
