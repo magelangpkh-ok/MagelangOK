@@ -1,0 +1,149 @@
+[
+  {
+    "id": "1",
+    "title": "SEGERA KERJAKAN",
+    "url": "/",
+    "order_index": 1,
+    "submenus": [
+      {
+        "id": "s1788350647260",
+        "title": "VERIFIKASI ",
+        "url": "https://#",
+        "order_index": 1
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "title": "Data & Layanan KPM",
+    "url": "#",
+    "order_index": 2,
+    "submenus": [
+      {
+        "id": "s1",
+        "title": "Cek Status Penerima Bantuan (DTKS)",
+        "url": "https://cekbansos.kemensos.go.id",
+        "order_index": 1,
+        "is_active": false
+      },
+      {
+        "id": "s2",
+        "title": "Jadwal Pencairan PKH",
+        "url": "/jadwal",
+        "order_index": 2,
+        "is_active": false
+      },
+      {
+        "id": "s3",
+        "title": "Syarat Kepesertaan Baru",
+        "url": "/syarat",
+        "order_index": 3
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "title": "Pusat Edukasi (P2K2)",
+    "url": "#",
+    "order_index": 3,
+    "submenus": [
+      {
+        "id": "e1",
+        "title": "Modul Kesehatan & Gizi (Stunting)",
+        "url": "/edukasi/stunting",
+        "order_index": 1
+      },
+      {
+        "id": "e2",
+        "title": "Modul Ekonomi & Usaha Mandiri",
+        "url": "/edukasi/ekonomi",
+        "order_index": 2
+      },
+      {
+        "id": "e3",
+        "title": "Modul Pengasuhan Anak",
+        "url": "/edukasi/anak",
+        "order_index": 3
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "title": "Aplikasi Internal (Pendamping)",
+    "url": "#",
+    "order_index": 4,
+    "submenus": [
+      {
+        "id": "a1",
+        "title": "Aplikasi e-PKH Web",
+        "url": "https://epkh.kemensos.go.id",
+        "order_index": 1
+      },
+      {
+        "id": "a2",
+        "title": "Sistem Absensi (Sikda)",
+        "url": "/absensi",
+        "order_index": 2
+      },
+      {
+        "id": "a3",
+        "title": "Formulir Laporan Bulanan",
+        "url": "/laporan",
+        "order_index": 3
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "title": "Pusat Pengaduan",
+    "url": "#",
+    "order_index": 5,
+    "submenus": [
+      {
+        "id": "p1",
+        "title": "Lapor Kendala Saldo / KKS",
+        "url": "/lapor/kks",
+        "order_index": 1
+      },
+      {
+        "id": "p2",
+        "title": "Layanan Call Center Kemsos (171)",
+        "url": "tel:171",
+        "order_index": 2,
+        "is_active": false
+      },
+      {
+        "id": "p3",
+        "title": "Hubungi Koordinator Kabupaten",
+        "url": "https://wa.me/628123456789",
+        "order_index": 3
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "title": "Galeri & Sosial Media",
+    "url": "#",
+    "order_index": 6,
+    "submenus": [
+      {
+        "id": "g1",
+        "title": "Instagram @PKHMagelang",
+        "url": "https://instagram.com",
+        "order_index": 1
+      },
+      {
+        "id": "g2",
+        "title": "Dokumentasi Kegiatan",
+        "url": "/galeri",
+        "order_index": 2
+      },
+      {
+        "id": "s1788346999295",
+        "title": "tambah",
+        "url": "https://#",
+        "order_index": 3
+      }
+    ]
+  }
+]
