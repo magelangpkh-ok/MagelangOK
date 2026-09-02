@@ -7,7 +7,7 @@ import CandiSketch from "@/components/CandiSketch";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "MagelangOK - Pusat Operasi PKH",
+  title: "MagelangOK - Semua Ada",
   description: "Portal Informasi Program Keluarga Harapan Kabupaten Magelang",
 };
 
