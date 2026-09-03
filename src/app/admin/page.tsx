@@ -20,7 +20,7 @@ export default function AdminDashboard() {
   const [formData, setFormData] = useState({ title: '', url: '', db_url: '' });
   
   // Settings State
-  const [settings, setSettings] = useState({ title: '', highlight: '', subtitle: '', broadcast_active: false, broadcast_text: '' });
+  const [settings, setSettings] = useState({ title: '', highlight: '', subtitle: '', broadcast_active: false, broadcast_text: '', theme: 'theme-default' });
   const [savingSettings, setSavingSettings] = useState(false);
 
   // Tab State
