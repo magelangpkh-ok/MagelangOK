@@ -1,167 +1,147 @@
-import React from 'react';
+'use client';
 
-type RobotStatus = 'idle' | 'typing' | 'error' | 'success';
+import { useEffect, useState } from 'react';
 
-export default function CyberRobot({ status }: { status: RobotStatus }) {
+type RobotStatus = 'idle' | 'typing' | 'success' | 'error';
+
+export default function CyberRobot({ status = 'idle' }: { status?: RobotStatus }) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
-    <div className={`cyber-robot-container ${status}`}>
-      <svg width="180" height="180" viewBox="0 0 100 100" overflow="visible">
+    <div className="quantum-core-container" style={{ margin: '0 auto', width: '250px', height: '250px', position: 'relative' }}>
+      <svg viewBox="0 0 200 200" width="250" height="250" className={`ai-core ${status}`}>
         <defs>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
-            <feMerge>
-              <feMergeNode in="coloredBlur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
+          <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="var(--accent-secondary)" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="var(--accent-primary)" stopOpacity="0" />
+          </radialGradient>
+          <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="6" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
           </filter>
         </defs>
 
-        <g className="robot-body">
-          {/* Antenna */}
-          <line x1="50" y1="15" x2="50" y2="5" stroke="#94a3b8" strokeWidth="3" strokeLinecap="round" />
-          <circle className="antenna-ball" cx="50" cy="5" r="4" fill="#38bdf8" />
+        {/* Ambient Glow */}
+        <circle cx="100" cy="100" r="85" fill="url(#coreGlow)" className="ambient-pulse" />
 
-          {/* Head */}
-          <rect x="25" y="15" width="50" height="35" rx="15" fill="#f8fafc" stroke="#cbd5e1" strokeWidth="2" />
-          
-          {/* Ears */}
-          <rect x="18" y="25" width="7" height="15" rx="3" fill="#94a3b8" />
-          <rect x="75" y="25" width="7" height="15" rx="3" fill="#94a3b8" />
+        {/* Outer Ring 1 */}
+        <circle cx="100" cy="100" r="75" fill="none" stroke="var(--accent-primary)" strokeWidth="1" strokeDasharray="4 8" className="spin-slow" opacity="0.3" />
+        
+        {/* Outer Ring 2 */}
+        <circle cx="100" cy="100" r="65" fill="none" stroke="var(--accent-secondary)" strokeWidth="1.5" strokeDasharray="30 10 10 10" className="spin-reverse" opacity="0.4" />
 
-          {/* Visor Screen */}
-          <rect x="32" y="22" width="36" height="18" rx="6" fill="#0f172a" />
-          
-          {/* Dynamic Eye/Visor Content */}
-          <rect 
-            className="visor-eye" 
-            x="35" 
-            y="25" 
-            width={status === 'success' ? '30' : '10'} 
-            height={status === 'success' ? '6' : '12'} 
-            rx="3" 
-            fill={status === 'error' ? '#ef4444' : '#10b981'} 
-            filter="url(#glow)"
-          />
-          {status === 'success' && (
-            <path d="M 35 35 Q 50 42 65 35" stroke="#10b981" strokeWidth="3" strokeLinecap="round" fill="none" filter="url(#glow)" />
-          )}
-          {status === 'error' && (
-             <path d="M 38 27 L 46 35 M 46 27 L 38 35 M 54 27 L 62 35 M 62 27 L 54 35" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" filter="url(#glow)" />
-          )}
+        {/* The Core Sphere */}
+        <circle cx="100" cy="100" r="45" fill="var(--bg-card)" stroke="var(--accent-primary)" strokeWidth="2" filter="url(#softGlow)" className="core-sphere" />
+        
+        {/* Inner Data Ring */}
+        <circle cx="100" cy="100" r="28" fill="none" stroke="var(--accent-secondary)" strokeWidth="1.5" strokeDasharray="15 5" className="spin-fast" />
 
-          {/* Torso */}
-          <rect x="35" y="50" width="30" height="25" rx="8" fill="#e2e8f0" stroke="#cbd5e1" strokeWidth="2" />
-          
-          {/* Arms */}
-          <path className="arm-l" d="M 35 55 Q 15 55, 20 75" stroke="#e2e8f0" strokeWidth="8" strokeLinecap="round" fill="none" />
-          <path className="arm-r" d="M 65 55 Q 85 55, 80 75" stroke="#e2e8f0" strokeWidth="8" strokeLinecap="round" fill="none" />
+        {/* Core Energy Center */}
+        <circle cx="100" cy="100" r="12" fill="var(--accent-primary)" className="core-pulse" />
 
-          {/* Thruster Base */}
-          <path d="M 40 75 L 45 85 L 55 85 L 60 75 Z" fill="#94a3b8" />
-          
-          {/* Flame */}
-          <path className="flame" d="M 45 85 Q 50 110, 55 85 Z" fill="#38bdf8" filter="url(#glow)" />
+        {/* Cute Sparkles (Typing State) */}
+        <g className="typing-particles" opacity="0">
+          <path d="M100 15 L105 25 L115 30 L105 35 L100 45 L95 35 L85 30 L95 25 Z" fill="var(--accent-gold)" className="sparkle s1" />
+          <path d="M165 80 L170 85 L180 90 L170 95 L165 105 L160 95 L150 90 L160 85 Z" fill="var(--accent-secondary)" className="sparkle s2" />
+          <path d="M30 110 L35 115 L45 120 L35 125 L30 135 L25 125 L15 120 L25 115 Z" fill="var(--accent-primary)" className="sparkle s3" />
+          <path d="M130 160 L133 165 L140 168 L133 171 L130 178 L127 171 L120 168 L127 165 Z" fill="var(--accent-gold)" className="sparkle s4" />
         </g>
       </svg>
 
       <style dangerouslySetInnerHTML={{__html: `
-        .cyber-robot-container {
-          display: flex;
-          justify-content: center;
-          margin-bottom: 1rem;
+        .ai-core {
+          display: block;
+          margin: 0 auto;
         }
 
-        /* Hover Animation */
-        @keyframes float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
+        .spin-slow {
+          transform-origin: 100px 100px;
+          animation: spin 25s linear infinite;
         }
-        .robot-body {
-          animation: float 3s ease-in-out infinite;
+
+        .spin-reverse {
+          transform-origin: 100px 100px;
+          animation: spin 20s linear infinite reverse;
+        }
+
+        .spin-fast {
+          transform-origin: 100px 100px;
+          animation: spin 6s linear infinite;
+        }
+
+        .ambient-pulse {
+          animation: pulseAmbient 4s ease-in-out infinite;
+        }
+
+        .core-sphere {
+          transition: all 0.5s ease;
+        }
+
+        .core-pulse {
+          animation: pulseCore 2s ease-in-out infinite;
+        }
+
+        /* Status: Typing */
+        .ai-core.typing .spin-fast {
+          animation: spin 1.5s linear infinite;
+          stroke: var(--accent-gold);
+        }
+        .ai-core.typing .core-pulse {
+          fill: var(--accent-gold);
+        }
+        .ai-core.typing .typing-particles {
+          opacity: 1;
+        }
+        
+        .sparkle {
           transform-origin: center;
+          animation: popSparkle 1.5s ease-in-out infinite;
         }
+        .s1 { animation-delay: 0s; transform-origin: 100px 30px; }
+        .s2 { animation-delay: 0.3s; transform-origin: 165px 90px; }
+        .s3 { animation-delay: 0.6s; transform-origin: 30px 120px; }
+        .s4 { animation-delay: 0.9s; transform-origin: 130px 168px; }
 
-        /* Flame Thruster Animation */
-        @keyframes flicker {
-          0%, 100% { transform: scaleY(1); }
-          50% { transform: scaleY(1.3); }
+        /* Status: Success */
+        .ai-core.success .core-sphere {
+          stroke: #10b981; 
         }
-        .flame {
-          transform-origin: 50px 85px;
-          animation: flicker 0.1s infinite alternate;
-        }
-
-        /* Visor Eye Animation */
-        @keyframes scan {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(20px); }
-        }
-        @keyframes panic-scan {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(20px); }
-        }
-        .idle .visor-eye {
-          animation: scan 2s ease-in-out infinite alternate;
-        }
-        .typing .visor-eye {
-          animation: scan 0.5s ease-in-out infinite alternate;
-        }
-        .error .visor-eye {
-          display: none; /* Replaced by X eyes */
-        }
-        .success .visor-eye {
-          animation: none;
-          transform: translateY(2px);
-        }
-
-        /* Antenna Animation */
-        .typing .antenna-ball {
-          fill: #f59e0b;
-          animation: flicker 0.2s infinite;
-        }
-        .error .antenna-ball {
-          fill: #ef4444;
-        }
-        .success .antenna-ball {
+        .ai-core.success .core-pulse {
           fill: #10b981;
         }
 
-        /* Arms Animation */
-        @keyframes type-left {
-          0%, 100% { d: path("M 35 55 Q 15 55, 20 75"); }
-          50% { d: path("M 35 55 Q 25 50, 30 65"); }
+        /* Status: Error */
+        .ai-core.error .core-sphere {
+          stroke: #ef4444; 
         }
-        @keyframes type-right {
-          0%, 100% { d: path("M 65 55 Q 85 55, 80 75"); }
-          50% { d: path("M 65 55 Q 75 50, 70 65"); }
-        }
-        .typing .arm-l { animation: type-left 0.2s infinite alternate; }
-        .typing .arm-r { animation: type-right 0.25s infinite alternate; }
-
-        /* Error Shake Animation */
-        @keyframes robot-shake {
-          0%, 100% { transform: translateX(0) rotate(0deg); }
-          25% { transform: translateX(-5px) rotate(-5deg); }
-          75% { transform: translateX(5px) rotate(5deg); }
-        }
-        .error .robot-body {
-          animation: robot-shake 0.3s infinite;
+        .ai-core.error .core-pulse {
+          fill: #ef4444;
         }
 
-        /* Success Spin/Jump Animation */
-        @keyframes robot-cheer {
-          0% { transform: translateY(0); }
-          50% { transform: translateY(-20px); }
-          100% { transform: translateY(0); }
+        @keyframes spin {
+          100% { transform: rotate(360deg); }
         }
-        .success .robot-body {
-          animation: robot-cheer 0.6s ease-out;
+
+        @keyframes pulseAmbient {
+          0%, 100% { transform: scale(1); opacity: 0.4; }
+          50% { transform: scale(1.1); opacity: 0.7; }
         }
-        .success .arm-l {
-          d: path("M 35 55 Q 10 30, 20 20"); /* Arms raised */
+
+        @keyframes pulseCore {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.3); }
         }
-        .success .arm-r {
-          d: path("M 65 55 Q 90 30, 80 20"); /* Arms raised */
+
+        @keyframes popSparkle {
+          0% { transform: scale(0) rotate(0deg); opacity: 0; }
+          50% { transform: scale(1.2) rotate(45deg); opacity: 1; }
+          100% { transform: scale(0) rotate(90deg); opacity: 0; }
         }
       `}} />
     </div>

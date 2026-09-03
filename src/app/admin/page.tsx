@@ -255,6 +255,22 @@ export default function AdminDashboard() {
                     />
                   </div>
                 </div>
+
+                <div className="form-group" style={{ marginBottom: 0 }}>
+                  <label>Tema Tampilan Portal</label>
+                  <select 
+                    className="input-glass" 
+                    value={settings.theme || 'theme-default'} 
+                    onChange={(e) => setSettings({...settings, theme: e.target.value})}
+                    style={{ cursor: 'pointer', appearance: 'auto' }}
+                  >
+                    <option value="theme-default">Glassmorphism Modern (Default)</option>
+                    <option value="theme-sketsa">Sketsa Komik (Hand-drawn)</option>
+                    <option value="theme-simpel">Apple Minimalist (Simpel)</option>
+                    <option value="theme-game">Retro Game (8-Bit Pixel Art)</option>
+                  </select>
+                </div>
+                
                 <div className="form-group" style={{ marginBottom: 0 }}>
                   <label>Sub-judul / Deskripsi Pendek</label>
                   <input 
@@ -286,7 +302,7 @@ export default function AdminDashboard() {
               {loading ? <p style={{ color: 'var(--accent-primary)', fontFamily: 'monospace' }}>Decrypting payload streams...</p> : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                   {data.map((menu, index) => (
-                    <div key={menu.id} style={{ background: 'white', padding: '1.75rem', borderRadius: '16px', border: '1px solid rgba(0,0,0,0.05)', boxShadow: '0 5px 15px rgba(0,0,0,0.02)' }}>
+                    <div key={menu.id} style={{ background: 'var(--bg-card)', padding: '1.75rem', borderRadius: '16px', border: '1px solid var(--card-border)', boxShadow: 'var(--glass-shadow)' }}>
                       
                       {/* MAIN MENU ROW */}
                       <div className="flex-between">
@@ -414,15 +430,15 @@ export default function AdminDashboard() {
           <div className="glass-panel" style={{ padding: '2.5rem' }}>
             <h2 style={{ fontSize: '1.8rem', marginBottom: '2rem', color: 'var(--text-primary)', borderBottom: '1px solid rgba(0,0,0,0.05)', paddingBottom: '1rem' }}>System Metrics (Live)</h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
-              <div style={{ background: 'white', padding: '2rem', borderRadius: '16px', border: '1px solid rgba(0,0,0,0.05)', textAlign: 'center' }}>
+              <div style={{ background: 'var(--bg-card)', padding: '2rem', borderRadius: '16px', border: '1px solid var(--card-border)', textAlign: 'center' }}>
                 <div style={{ fontSize: '3rem', color: 'var(--accent-primary)', fontWeight: 900, marginBottom: '0.5rem' }}>99.9%</div>
                 <div style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>Uptime Server</div>
               </div>
-              <div style={{ background: 'white', padding: '2rem', borderRadius: '16px', border: '1px solid rgba(0,0,0,0.05)', textAlign: 'center' }}>
+              <div style={{ background: 'var(--bg-card)', padding: '2rem', borderRadius: '16px', border: '1px solid var(--card-border)', textAlign: 'center' }}>
                 <div style={{ fontSize: '3rem', color: 'var(--accent-secondary)', fontWeight: 900, marginBottom: '0.5rem' }}>142</div>
                 <div style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>Pengunjung Aktif</div>
               </div>
-              <div style={{ background: 'white', padding: '2rem', borderRadius: '16px', border: '1px solid rgba(0,0,0,0.05)', textAlign: 'center' }}>
+              <div style={{ background: 'var(--bg-card)', padding: '2rem', borderRadius: '16px', border: '1px solid var(--card-border)', textAlign: 'center' }}>
                 <div style={{ fontSize: '3rem', color: '#10b981', fontWeight: 900, marginBottom: '0.5rem' }}>14ms</div>
                 <div style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>Latency</div>
               </div>

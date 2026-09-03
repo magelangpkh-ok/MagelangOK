@@ -37,7 +37,8 @@ export async function POST(request: Request) {
         highlight: body.highlight,
         subtitle: body.subtitle,
         broadcast_active: body.broadcast_active,
-        broadcast_text: body.broadcast_text
+        broadcast_text: body.broadcast_text,
+        theme: body.theme || 'theme-default'
       });
 
     if (error) throw error;

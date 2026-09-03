@@ -34,11 +34,11 @@ export default function Login() {
   };
 
   return (
-    <div className="portal-container" style={{ justifyContent: 'center', minHeight: '80vh' }}>
+    <div className="portal-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
       <div className="cyber-grid"></div>
       
       <div className={`portal-card ${status === 'error' ? 'shake-animation' : ''} ${status === 'success' ? 'bounce-animation' : ''}`} 
-           style={{ maxWidth: '450px', width: '100%', padding: '3rem', textAlign: 'center', background: 'rgba(255,255,255,0.85)', transition: 'all 0.3s' }}>
+           style={{ maxWidth: '450px', width: '100%', padding: '3rem', textAlign: 'center', background: 'var(--bg-card)', backdropFilter: 'blur(10px)', transition: 'all 0.3s' }}>
         
         <CyberRobot status={status} />
 
@@ -92,7 +92,7 @@ export default function Login() {
           60% { transform: translateY(-15px); }
         }
         .shake-animation { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; border-color: #ef4444 !important; }
-        .bounce-animation { animation: bounce 1s; border-color: var(--accent-primary) !important; background: white !important; box-shadow: 0 0 50px rgba(5, 150, 105, 0.4) !important; }
+        .bounce-animation { animation: bounce 1s; border-color: var(--accent-primary) !important; background: var(--bg-card) !important; box-shadow: 0 0 50px rgba(5, 150, 105, 0.4) !important; }
         .error-border { border-color: #ef4444 !important; box-shadow: 0 0 15px rgba(239, 68, 68, 0.2) !important; background: rgba(239, 68, 68, 0.05) !important;}
       `}} />
     </div>
