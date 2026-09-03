@@ -42,7 +42,7 @@ export default function Navigation() {
             M
           </div>
           <h2 style={{ letterSpacing: '1px', fontWeight: '500', fontSize: '1.2rem', margin: 0 }}>
-            MAGELANG <span style={{ fontWeight: '800', color: 'var(--accent-primary)' }}>PORTAL</span>
+            MAGELANG <span style={{ fontWeight: '800', color: 'var(--accent-primary)' }}>OK</span>
           </h2>
         </Link>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
