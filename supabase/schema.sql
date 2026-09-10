@@ -5,6 +5,7 @@ CREATE TABLE public.menus (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     title VARCHAR(255) NOT NULL,
     url VARCHAR(255) DEFAULT '#',
+    icon VARCHAR(255),
     order_index INTEGER DEFAULT 0,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
@@ -15,6 +16,7 @@ CREATE TABLE public.submenus (
     menu_id UUID REFERENCES public.menus(id) ON DELETE CASCADE,
     title VARCHAR(255) NOT NULL,
     url VARCHAR(255) NOT NULL,
+    icon VARCHAR(255),
     order_index INTEGER DEFAULT 0,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );

@@ -899,4 +899,392 @@ h1, h2, h3, h4 {
   }
 }
 
+/* =========================================
+   NEW THEMES (Neo-Brutalism, Neumorphism, Vibrant Glass)
+   ========================================= */
+
+/* Theme: Neo-Brutalism (Bold & Retro) */
+.theme-neobrutalism {
+  --bg-base: #51d6c5; /* Cyan */
+  --bg-card: #ffffff; /* White cards */
+  --text-primary: #000;
+  --text-secondary: #000;
+  --glass-border: #000;
+  --card-border: #000;
+  --card-hover-border: #000;
+  --accent-primary: #000;
+  --glass-shadow: 6px 6px 0px #000;
+}
+.theme-neobrutalism .portal-header h1 {
+  font-weight: 900;
+  color: #000;
+  text-shadow: none;
+  font-size: 3.5rem;
+  letter-spacing: -2px;
+}
+.theme-neobrutalism .portal-header p {
+  color: #000;
+  font-weight: 800;
+}
+.theme-neobrutalism .portal-card,
+.theme-neobrutalism .glass-panel {
+  background: #fff;
+  border: 4px solid #000;
+  border-radius: 8px;
+  box-shadow: 8px 8px 0px #000;
+  backdrop-filter: none;
+  transition: all 0.2s ease;
+}
+.theme-neobrutalism .portal-card:nth-child(even) {
+  background: #ff00ff; /* alternating magenta */
+  color: #fff;
+}
+.theme-neobrutalism .portal-card:nth-child(even) h3,
+.theme-neobrutalism .portal-card:nth-child(even) .sub-links li a {
+  color: #fff;
+  border-color: #000;
+}
+.theme-neobrutalism .portal-card:nth-child(even) .btn-primary {
+  color: #000;
+}
+.theme-neobrutalism .portal-card:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0px #000;
+}
+.theme-neobrutalism .search-box input {
+  border: 4px solid #000;
+  border-radius: 50px;
+  box-shadow: 6px 6px 0px #000;
+  font-weight: 900;
+  color: #000;
+}
+.theme-neobrutalism .search-box input:focus {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0px #000;
+}
+.theme-neobrutalism .btn-primary {
+  background: #fff;
+  color: #000;
+  border: 3px solid #000;
+  box-shadow: 4px 4px 0px #000;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+.theme-neobrutalism .btn-primary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #000;
+  background: #ff00ff;
+}
+.theme-neobrutalism .sub-links li a {
+  border: 3px solid transparent;
+  font-weight: 800;
+}
+.theme-neobrutalism .sub-links li a:hover {
+  border: 3px solid #000;
+  background: #ff00ff;
+  color: #000 !important;
+  transform: none;
+  box-shadow: 4px 4px 0px #000;
+}
+.theme-neobrutalism .badge-prioritas {
+  background: #ff00ff;
+  color: #000;
+  border: 3px solid #000;
+  box-shadow: 2px 2px 0 #000;
+  text-shadow: none;
+}
+
+/* Theme: Neumorphism (Soft UI) */
+.theme-neumorphism {
+  --bg-base: #e0e5ec;
+  --bg-card: #e0e5ec;
+  --text-primary: #4a4a4a; 
+  --text-secondary: #8c9baf;
+  --glass-border: transparent;
+  --card-border: transparent;
+  --card-hover-border: transparent;
+  --accent-primary: #a33cc7; /* Purple accent */
+  --glass-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.5);
+}
+.theme-neumorphism body,
+.theme-neumorphism .portal-container {
+  background-color: var(--bg-base);
+}
+.theme-neumorphism .portal-header h1 {
+  color: var(--text-primary);
+  text-shadow: 2px 2px 4px rgba(163,177,198,0.5), -2px -2px 4px rgba(255,255,255, 0.5);
+}
+.theme-neumorphism .portal-header h1 span {
+  color: var(--accent-primary);
+}
+.theme-neumorphism .portal-card,
+.theme-neumorphism .glass-panel {
+  background: #e0e5ec;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.5);
+  backdrop-filter: none;
+}
+.theme-neumorphism .search-box input {
+  background: #e0e5ec;
+  border: none;
+  box-shadow: inset 6px 6px 10px 0 rgba(163,177,198, 0.5), inset -6px -6px 10px 0 rgba(255,255,255, 0.5);
+}
+.theme-neumorphism .search-box input:focus {
+  box-shadow: inset 8px 8px 12px 0 rgba(163,177,198, 0.6), inset -8px -8px 12px 0 rgba(255,255,255, 0.6);
+  transform: none;
+}
+.theme-neumorphism .portal-card:hover {
+  transform: none;
+  box-shadow: 4px 4px 8px rgb(163,177,198,0.6), -4px -4px 8px rgba(255,255,255, 0.5);
+}
+.theme-neumorphism .btn-primary {
+  background: #e0e5ec;
+  color: var(--accent-primary);
+  border: none;
+  border-radius: 50px;
+  box-shadow: 5px 5px 10px rgb(163,177,198,0.6), -5px -5px 10px rgba(255,255,255, 0.5);
+  font-weight: 800;
+}
+.theme-neumorphism .btn-primary:hover {
+  box-shadow: inset 5px 5px 10px rgb(163,177,198,0.6), inset -5px -5px 10px rgba(255,255,255, 0.5);
+  transform: none;
+}
+.theme-neumorphism .sub-links li a {
+  color: var(--text-primary);
+}
+.theme-neumorphism .sub-links li a:hover {
+  background: transparent;
+  color: var(--accent-primary);
+  box-shadow: inset 4px 4px 8px rgb(163,177,198,0.5), inset -4px -4px 8px rgba(255,255,255, 0.5);
+  transform: none;
+}
+
+/* Theme: Glassmorphism Vibrant (Colorful Blends) */
+.theme-glass-vibrant {
+  --bg-base: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+  --bg-card: rgba(255, 255, 255, 0.25);
+  --text-primary: #1e293b; /* Dark slate for readability */
+  --text-secondary: #475569;
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --card-border: rgba(255, 255, 255, 0.5);
+  --card-hover-border: rgba(255, 255, 255, 0.8);
+  --accent-primary: #6d28d9; /* Deep purple */
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+}
+.theme-glass-vibrant .portal-container {
+  position: relative;
+}
+.theme-glass-vibrant .portal-container::before {
+  content: '';
+  position: fixed;
+  top: -20%; left: -10%; width: 50vw; height: 50vh;
+  background: radial-gradient(circle, rgba(100, 200, 255, 0.6), transparent 70%);
+  z-index: 0;
+  pointer-events: none;
+}
+.theme-glass-vibrant .portal-container::after {
+  content: '';
+  position: fixed;
+  bottom: -10%; right: -10%; width: 60vw; height: 60vh;
+  background: radial-gradient(circle, rgba(255, 100, 200, 0.6), transparent 70%);
+  z-index: 0;
+  pointer-events: none;
+}
+.theme-glass-vibrant .portal-header h1 {
+  color: #1e293b;
+  text-shadow: 0 2px 10px rgba(255,255,255,0.8);
+}
+.theme-glass-vibrant .portal-card,
+.theme-glass-vibrant .glass-panel {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+}
+.theme-glass-vibrant .portal-card h3 {
+  color: #1e293b;
+  border-bottom-color: rgba(0,0,0,0.1);
+}
+.theme-glass-vibrant .search-box input {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  color: #1e293b;
+  backdrop-filter: blur(24px);
+  font-weight: 600;
+}
+.theme-glass-vibrant .search-box input::placeholder {
+  color: #64748b;
+}
+.theme-glass-vibrant .btn-primary {
+  background: var(--accent-primary);
+  color: #fff;
+  border: none;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 15px rgba(109, 40, 217, 0.3);
+}
+.theme-glass-vibrant .btn-primary:hover {
+  background: #5b21b6;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(109, 40, 217, 0.4);
+}
+.theme-glass-vibrant .sub-links li a {
+  color: #1e293b;
+  background: rgba(255, 255, 255, 0.4);
+  font-weight: 700;
+}
+.theme-glass-vibrant .sub-links li a .bullet {
+  background: var(--accent-primary);
+}
+.theme-glass-vibrant .sub-links li a:hover {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.8);
+  color: var(--accent-primary);
+}
+
+/* =========================================
+   ENHANCED ANIMATIONS & MICRO-INTERACTIONS
+   ========================================= */
+
+/* Global Floats */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 1. Theme: Default & General enhancements */
+.theme-default .portal-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px -5px rgba(37, 99, 235, 0.15), 0 10px 20px -5px rgba(37, 99, 235, 0.1);
+}
+.theme-default .sub-links li a:hover {
+  transform: translateX(8px);
+  background: linear-gradient(90deg, rgba(37, 99, 235, 0.1) 0%, transparent 100%);
+  border-left: 3px solid var(--accent-primary);
+}
+
+/* 2. Theme: Sketsa */
+@keyframes wiggle-sketch {
+  0%, 100% { transform: rotate(0deg) scale(1.02); }
+  25% { transform: rotate(-2deg) scale(1.02); }
+  75% { transform: rotate(2deg) scale(1.02); }
+}
+.theme-sketsa .portal-card {
+  transition: all 0.2s ease;
+}
+.theme-sketsa .portal-card:hover {
+  animation: wiggle-sketch 0.4s ease-in-out infinite;
+  box-shadow: 8px 8px 0px rgba(0,0,0,1);
+}
+.theme-sketsa .sub-links li a:hover {
+  transform: translateX(5px) rotate(-1deg);
+  font-weight: 900;
+  border: 2px solid #333;
+}
+
+/* 3. Theme: Simpel */
+.theme-simpel .portal-card {
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.theme-simpel .portal-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+}
+.theme-simpel .sub-links li a:hover {
+  transform: scale(1.04);
+  background: rgba(0,0,0,0.05);
+}
+
+/* 4. Theme: Retro Game */
+@keyframes pixel-bounce {
+  0%, 100% { transform: translateY(0) scale(1.02); }
+  50% { transform: translateY(-8px) scale(1.02); }
+}
+.theme-game .portal-card:hover {
+  animation: pixel-bounce 0.4s steps(4, end) infinite;
+  box-shadow: 8px 12px 0px rgba(0,0,0,1);
+  border-color: #fff;
+}
+.theme-game .sub-links li a:hover {
+  transform: translateX(8px);
+  background: #fff;
+  border-left: 4px solid #e52521;
+}
+
+/* 5. Theme: Neo-Brutalism */
+.theme-neobrutalism .portal-card {
+  transition: transform 0.1s cubic-bezier(0, 0, 0, 1), box-shadow 0.1s cubic-bezier(0, 0, 0, 1);
+}
+.theme-neobrutalism .portal-card:hover {
+  transform: translate(-6px, -6px);
+  box-shadow: 14px 14px 0px #000;
+}
+.theme-neobrutalism .sub-links li a {
+  transition: all 0.1s linear;
+}
+.theme-neobrutalism .sub-links li a:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px #000;
+}
+
+/* 6. Theme: Neumorphism */
+.theme-neumorphism .portal-card {
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.theme-neumorphism .portal-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 12px 12px 24px rgb(163,177,198,0.7), -12px -12px 24px rgba(255,255,255, 0.6);
+}
+.theme-neumorphism .sub-links li a {
+  transition: all 0.3s ease;
+}
+.theme-neumorphism .sub-links li a:hover {
+  transform: translateX(5px);
+  box-shadow: inset 6px 6px 12px rgb(163,177,198,0.4), inset -6px -6px 12px rgba(255,255,255, 0.4);
+}
+
+/* 7. Theme: Glassmorphism Vibrant */
+@keyframes bg-gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.theme-glass-vibrant {
+  --bg-base: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 33%, #84fab0 66%, #8fd3f4 100%);
+  background-size: 300% 300% !important;
+  animation: bg-gradient-shift 15s ease infinite;
+}
+.theme-glass-vibrant .portal-container::before {
+  animation: float 8s ease-in-out infinite;
+}
+.theme-glass-vibrant .portal-container::after {
+  animation: float 10s ease-in-out infinite reverse;
+}
+.theme-glass-vibrant .portal-card {
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.theme-glass-vibrant .portal-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 15px 45px 0 rgba(31, 38, 135, 0.25);
+  border-color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.4);
+}
+.theme-glass-vibrant .sub-links li a {
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.theme-glass-vibrant .sub-links li a:hover {
+  transform: translateX(10px);
+  background: linear-gradient(90deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.2) 100%);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  border-left: 3px solid var(--accent-primary);
+}
+
 

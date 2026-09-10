@@ -153,6 +153,7 @@ export default function PortalClient({ initialMenus, initialSettings }: any) {
                 style={{ animationDelay: `${0.1 * (index + 2)}s` }}
               >
                 <h3>
+                  {menu.icon && <span style={{marginRight: '8px'}}>{menu.icon}</span>}
                   {menu.title}
                   {isUrgent && (
                     <span className="badge-prioritas">
@@ -172,7 +173,7 @@ export default function PortalClient({ initialMenus, initialSettings }: any) {
                     {menu.submenus.map((sub: any) => (
                       <li key={sub.id}>
                         <a href={sub.url} target="_blank" rel="noopener noreferrer" className={isUrgent ? 'urgent-sublink' : ''}>
-                          <span className="bullet"></span>
+                          {sub.icon ? <span style={{marginRight: '8px'}}>{sub.icon}</span> : <span className="bullet"></span>}
                           {sub.title}
                         </a>
                       </li>

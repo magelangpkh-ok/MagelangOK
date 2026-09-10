@@ -25,6 +25,7 @@ export async function GET() {
       title: menu.title,
       url: menu.url,
       db_url: menu.db_url,
+      icon: menu.icon,
       order_index: menu.order_index,
       is_active: menu.is_active,
       submenus: submenus.filter(sub => sub.menu_id === menu.id).map(sub => ({
@@ -32,6 +33,7 @@ export async function GET() {
         title: sub.title,
         url: sub.url,
         db_url: sub.db_url,
+        icon: sub.icon,
         order_index: sub.order_index,
         is_active: sub.is_active
       }))
@@ -64,6 +66,7 @@ export async function POST(request: Request) {
         title: m.title,
         url: m.url,
         db_url: m.db_url || null,
+        icon: m.icon || null,
         order_index: m.order_index,
         is_active: m.is_active !== false // default true
       };
@@ -79,6 +82,7 @@ export async function POST(request: Request) {
             title: s.title,
             url: s.url,
             db_url: s.db_url || null,
+            icon: s.icon || null,
             order_index: s.order_index,
             is_active: s.is_active !== false
           });

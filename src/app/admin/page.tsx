@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-type Item = { id: string, title: string, url: string, order_index: number, submenus?: any[], is_active?: boolean, db_url?: string };
+type Item = { id: string, title: string, url: string, order_index: number, submenus?: any[], is_active?: boolean, db_url?: string, icon?: string };
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -17,7 +17,7 @@ export default function AdminDashboard() {
   const [parentMenuId, setParentMenuId] = useState<string | null>(null);
   
   // Form State
-  const [formData, setFormData] = useState({ title: '', url: '', db_url: '' });
+  const [formData, setFormData] = useState({ title: '', url: '', db_url: '', icon: '' });
   
   // Settings State
   const [settings, setSettings] = useState({ title: '', highlight: '', subtitle: '', broadcast_active: false, broadcast_text: '', theme: 'theme-default' });
@@ -97,17 +97,17 @@ export default function AdminDashboard() {
     setParentMenuId(parentId);
     if (existingData) {
       setEditId(existingData.id);
-      setFormData({ title: existingData.title, url: existingData.url, db_url: existingData.db_url || '' });
+      setFormData({ title: existingData.title, url: existingData.url, db_url: existingData.db_url || '', icon: existingData.icon || '' });
     } else {
       setEditId(null);
-      setFormData({ title: '', url: mode === 'menu' ? '#' : 'https://', db_url: '' });
+      setFormData({ title: '', url: mode === 'menu' ? '#' : 'https://', db_url: '', icon: '' });
     }
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setFormData({ title: '', url: '', db_url: '' });
+    setFormData({ title: '', url: '', db_url: '', icon: '' });
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
@@ -122,10 +122,11 @@ export default function AdminDashboard() {
           newData[index].title = formData.title;
           newData[index].url = formData.url;
           newData[index].db_url = formData.db_url;
+          newData[index].icon = formData.icon;
         }
       } else {
         // Add Menu
-        newData.push({ id: crypto.randomUUID(), title: formData.title, url: formData.url, db_url: formData.db_url, order_index: newData.length + 1, submenus: [] });
+        newData.push({ id: crypto.randomUUID(), title: formData.title, url: formData.url, db_url: formData.db_url, icon: formData.icon, order_index: newData.length + 1, submenus: [] });
       }
     } else if (modalMode === 'submenu' && parentMenuId) {
       const parentIndex = newData.findIndex(m => m.id === parentMenuId);
@@ -138,10 +139,11 @@ export default function AdminDashboard() {
             subs[subIndex].title = formData.title;
             subs[subIndex].url = formData.url;
             subs[subIndex].db_url = formData.db_url;
+            subs[subIndex].icon = formData.icon;
           }
         } else {
           // Add Sub
-          subs.push({ id: crypto.randomUUID(), title: formData.title, url: formData.url, db_url: formData.db_url, order_index: subs.length + 1 });
+          subs.push({ id: crypto.randomUUID(), title: formData.title, url: formData.url, db_url: formData.db_url, icon: formData.icon, order_index: subs.length + 1 });
         }
         newData[parentIndex].submenus = subs;
       }
@@ -172,6 +174,19 @@ export default function AdminDashboard() {
     }
     // Re-index
     newData.forEach((m, i) => m.order_index = i + 1);
+    saveData(newData);
+  };
+
+  const moveSubMenu = (menuIndex: number, subIndex: number, direction: 'up' | 'down') => {
+    let newData = [...data];
+    let subs = newData[menuIndex].submenus || [];
+    if (direction === 'up' && subIndex > 0) {
+      [subs[subIndex - 1], subs[subIndex]] = [subs[subIndex], subs[subIndex - 1]];
+    } else if (direction === 'down' && subIndex < subs.length - 1) {
+      [subs[subIndex + 1], subs[subIndex]] = [subs[subIndex], subs[subIndex + 1]];
+    }
+    subs.forEach((s: any, i: number) => s.order_index = i + 1);
+    newData[menuIndex].submenus = subs;
     saveData(newData);
   };
 
@@ -268,6 +283,9 @@ export default function AdminDashboard() {
                     <option value="theme-sketsa">Sketsa Komik (Hand-drawn)</option>
                     <option value="theme-simpel">Apple Minimalist (Simpel)</option>
                     <option value="theme-game">Retro Game (8-Bit Pixel Art)</option>
+                    <option value="theme-neobrutalism">Neo-Brutalism (Bold & Retro)</option>
+                    <option value="theme-neumorphism">Neumorphism (Soft UI)</option>
+                    <option value="theme-glass-vibrant">Vibrant Glass (Warna Warni)</option>
                   </select>
                 </div>
                 
@@ -306,17 +324,20 @@ export default function AdminDashboard() {
                       
                       {/* MAIN MENU ROW */}
                       <div className="flex-between">
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flex: 1, minWidth: 0 }}>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', flexShrink: 0 }}>
                             <button onClick={() => moveMenu(index, 'up')} style={{ background: 'none', border: 'none', color: index === 0 ? 'rgba(0,0,0,0.1)' : 'var(--accent-primary)', cursor: index === 0 ? 'default' : 'pointer' }}>▲</button>
                             <button onClick={() => moveMenu(index, 'down')} style={{ background: 'none', border: 'none', color: index === data.length - 1 ? 'rgba(0,0,0,0.1)' : 'var(--accent-primary)', cursor: index === data.length - 1 ? 'default' : 'pointer' }}>▼</button>
                           </div>
-                          <div>
-                            <h3 style={{ color: 'var(--text-primary)', fontSize: '1.3rem', fontWeight: 800 }}>{menu.title}</h3>
-                            <div style={{ fontSize: '0.85rem', color: 'var(--accent-secondary)', marginTop: '0.25rem', fontFamily: 'monospace' }}>{menu.url}</div>
+                          <div style={{ flex: 1, minWidth: 0, paddingRight: '1rem' }}>
+                            <h3 style={{ color: 'var(--text-primary)', fontSize: '1.3rem', fontWeight: 800 }}>
+                              {menu.icon && <span style={{marginRight: '8px'}}>{menu.icon}</span>}
+                              {menu.title}
+                            </h3>
+                            <div style={{ fontSize: '0.85rem', color: 'var(--accent-secondary)', marginTop: '0.25rem', fontFamily: 'monospace', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} title={menu.url}>{menu.url}</div>
                           </div>
                         </div>
-                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                        <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0 }}>
                           <button className="btn btn-glass" style={{ padding: '0.5rem 0.8rem', fontSize: '0.75rem', color: menu.is_active === false ? '#94a3b8' : 'var(--accent-primary)', borderColor: menu.is_active === false ? 'rgba(0,0,0,0.1)' : 'rgba(5,150,105,0.3)' }} onClick={() => toggleVisibility(menu.id)}>
                             {menu.is_active === false ? '👁️ TAMPILKAN' : '👁️ SEMBUNYIKAN'}
                           </button>
@@ -334,11 +355,19 @@ export default function AdminDashboard() {
                         <div style={{ marginTop: '1.5rem', paddingLeft: '2.5rem', borderLeft: '2px solid rgba(5,150,105,0.2)' }}>
                           {menu.submenus.map((sub: any, sIdx: number) => (
                             <div key={sub.id} className="flex-between" style={{ padding: '1rem 0', borderBottom: '1px solid rgba(0,0,0,0.03)' }}>
-                              <div>
-                                <span style={{ color: 'var(--text-primary)', fontWeight: '600' }}>└ {sub.title}</span>
-                                <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontFamily: 'monospace', paddingLeft: '1.25rem', marginTop: '0.25rem' }}>{sub.url}</div>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flex: 1, minWidth: 0 }}>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', flexShrink: 0 }}>
+                                  <button onClick={() => moveSubMenu(index, sIdx, 'up')} style={{ background: 'none', border: 'none', color: sIdx === 0 ? 'rgba(0,0,0,0.1)' : 'var(--accent-primary)', cursor: sIdx === 0 ? 'default' : 'pointer', fontSize: '0.8rem', padding: 0 }}>▲</button>
+                                  <button onClick={() => moveSubMenu(index, sIdx, 'down')} style={{ background: 'none', border: 'none', color: sIdx === (menu.submenus?.length || 0) - 1 ? 'rgba(0,0,0,0.1)' : 'var(--accent-primary)', cursor: sIdx === (menu.submenus?.length || 0) - 1 ? 'default' : 'pointer', fontSize: '0.8rem', padding: 0 }}>▼</button>
+                                </div>
+                                <div style={{ flex: 1, minWidth: 0, paddingRight: '1rem' }}>
+                                  <span style={{ color: 'var(--text-primary)', fontWeight: '600', display: 'block', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                    └ {sub.icon && <span style={{marginRight: '8px'}}>{sub.icon}</span>} {sub.title}
+                                  </span>
+                                  <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontFamily: 'monospace', paddingLeft: '1.25rem', marginTop: '0.25rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} title={sub.url}>{sub.url}</div>
+                                </div>
                               </div>
-                              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                              <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
                                 <button className="btn btn-glass" style={{ padding: '0.3rem 0.6rem', fontSize: '0.75rem', color: sub.is_active === false ? '#94a3b8' : 'var(--accent-primary)', borderColor: sub.is_active === false ? 'rgba(0,0,0,0.1)' : 'rgba(5,150,105,0.3)' }} onClick={() => toggleVisibility(menu.id, sub.id)}>
                                   {sub.is_active === false ? '👁️ Tampil' : '👁️ Sembunyi'}
                                 </button>
@@ -478,6 +507,16 @@ export default function AdminDashboard() {
                   onChange={(e) => setFormData({...formData, title: e.target.value})}
                   required 
                   placeholder="Misal: Portal Edukasi"
+                />
+              </div>
+              <div className="form-group">
+                <label>Icon (Emoji / Teks Pendek)</label>
+                <input 
+                  type="text" 
+                  className="input-glass" 
+                  value={formData.icon} 
+                  onChange={(e) => setFormData({...formData, icon: e.target.value})}
+                  placeholder="Misal: 📚"
                 />
               </div>
               <div className="form-group">
