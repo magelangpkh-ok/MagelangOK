@@ -1287,167 +1287,301 @@ h1, h2, h3, h4 {
   border-left: 3px solid var(--accent-primary);
 }
 
-/* 8. Theme: Anime One Piece */
+/* 8. Theme: Anime One Piece (Bounty Hunter) */
+@keyframes wave-action {
+  0% { background-position: 0 0; }
+  100% { background-position: 100px 100px; }
+}
+@keyframes float-ship {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(1deg); }
+}
 .theme-one-piece {
-  --bg-base: linear-gradient(135deg, #001f3f 0%, #003366 50%, #00509e 100%);
-  --text-primary: #ffcc00;
-  --text-secondary: #fffae6;
-  --bg-card: rgba(20, 30, 48, 0.7);
-  --glass-bg: rgba(0, 51, 102, 0.6);
-  --glass-border: rgba(255, 204, 0, 0.4);
-  --accent-primary: #e60000;
-  background-size: cover;
-  background-position: center;
-}
-.theme-one-piece .portal-card {
-  border: 2px solid var(--glass-border);
-  border-radius: 12px;
-  background-image: url('data:image/svg+xml;utf8,<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="2" fill="rgba(255, 204, 0, 0.2)"/></svg>');
-}
-.theme-one-piece .portal-card:hover {
-  transform: scale(1.03) rotate(-1deg);
-  box-shadow: 0 10px 20px rgba(230, 0, 0, 0.4);
-  border-color: #ffcc00;
-}
-.theme-one-piece h1 span {
-  color: #e60000;
-  text-shadow: 2px 2px 0px #ffcc00;
-}
-.theme-one-piece .btn-primary {
-  background: linear-gradient(45deg, #e60000, #990000);
-  color: #ffcc00;
-  border: 2px solid #ffcc00;
-  text-transform: uppercase;
-  font-weight: 800;
-}
-
-/* 9. Theme: Denny Caknan (Ambyar / Javanese Classic) */
-.theme-denny-caknan {
-  --bg-base: linear-gradient(120deg, #4b3621 0%, #3e2723 100%);
+  --bg-base: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   --text-primary: #f5deb3;
   --text-secondary: #d2b48c;
-  --bg-card: rgba(62, 39, 35, 0.8);
-  --glass-bg: rgba(75, 54, 33, 0.7);
-  --glass-border: rgba(245, 222, 179, 0.3);
-  --accent-primary: #8b4513;
+  --bg-card: rgba(139, 69, 19, 0.9);
+  --glass-bg: rgba(32, 58, 67, 0.8);
+  --glass-border: rgba(245, 222, 179, 0.4);
+  --accent-primary: #dc2626;
+  background-image: radial-gradient(circle at center, transparent 0%, #000 150%), repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 8px);
+  animation: wave-action 20s linear infinite;
 }
-.theme-denny-caknan .portal-card {
-  border-radius: 4px;
-  border: 1px solid var(--glass-border);
-  background: repeating-linear-gradient(45deg, rgba(245,222,179,0.03), rgba(245,222,179,0.03) 10px, transparent 10px, transparent 20px);
-  background-color: var(--bg-card);
+.theme-one-piece .portal-card {
+  background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)" opacity="0.15"/></svg>'), #8b4513;
+  border: 4px solid #5c2e0e;
+  border-radius: 2px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.8), inset 0 0 20px rgba(0,0,0,0.5);
+  animation: float-ship 4s ease-in-out infinite;
 }
-.theme-denny-caknan .portal-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-  border-color: #f5deb3;
+.theme-one-piece .portal-card:hover {
+  transform: scale(1.05) rotate(-2deg);
+  border-color: #dc2626;
+  box-shadow: 0 15px 30px rgba(220, 38, 38, 0.3), inset 0 0 20px rgba(0,0,0,0.5);
 }
-.theme-denny-caknan h1 {
-  font-family: 'Georgia', serif;
+.theme-one-piece h1 {
+  font-family: 'Impact', fantasy, sans-serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
-.theme-denny-caknan h1 span {
-  color: #d2b48c;
-  font-style: italic;
+.theme-one-piece h1 span {
+  color: #dc2626;
+  text-shadow: 3px 3px 0 #fff;
 }
-.theme-denny-caknan .btn-primary {
-  background: #8b4513;
-  color: #f5deb3;
-  border: 1px solid #f5deb3;
+.theme-one-piece .btn-primary {
+  background: #dc2626;
+  color: #fff;
+  border: 2px solid #fff;
+  box-shadow: 4px 4px 0 #000;
+  text-transform: uppercase;
+  font-weight: 900;
+  border-radius: 0;
+}
+.theme-one-piece .btn-primary:hover {
+  background: #b91c1c;
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000;
 }
 
-/* 10. Theme: Sepakbola (Football) */
+/* 9. Theme: Denny Caknan (Ambyar Acoustic) */
+@keyframes candle-flicker {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.01); }
+}
+.theme-denny-caknan {
+  --bg-base: radial-gradient(circle at 50% 0%, #4a2b10 0%, #1a0f05 80%);
+  --text-primary: #fef3c7;
+  --text-secondary: #fcd34d;
+  --bg-card: rgba(20, 12, 5, 0.7);
+  --glass-bg: rgba(74, 43, 16, 0.5);
+  --glass-border: rgba(252, 211, 77, 0.2);
+  --accent-primary: #d97706;
+}
+.theme-denny-caknan .portal-container {
+  background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M20 0l20 20-20 20L0 20z" fill="rgba(252,211,77,0.03)" fill-rule="evenodd"/></svg>');
+}
+.theme-denny-caknan .portal-card {
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 15px rgba(217, 119, 6, 0.1);
+}
+.theme-denny-caknan .portal-card:hover {
+  animation: candle-flicker 2s infinite;
+  border-color: #d97706;
+  box-shadow: 0 15px 40px rgba(217, 119, 6, 0.3), inset 0 0 20px rgba(217, 119, 6, 0.2);
+}
+.theme-denny-caknan h1 {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-weight: 400;
+}
+.theme-denny-caknan h1 span {
+  color: #fcd34d;
+  font-style: italic;
+  text-shadow: 0 0 15px rgba(252, 211, 77, 0.4);
+}
+.theme-denny-caknan .btn-primary {
+  background: linear-gradient(180deg, #d97706, #92400e);
+  color: #fff;
+  border: 1px solid #fcd34d;
+  border-radius: 30px;
+}
+
+/* 10. Theme: Sepakbola (Tactical Pitch) */
 .theme-sepakbola {
-  --bg-base: linear-gradient(to bottom, #115e59, #064e3b);
+  --bg-base: #064e3b;
   --text-primary: #ffffff;
   --text-secondary: #a7f3d0;
   --bg-card: rgba(255, 255, 255, 0.1);
-  --glass-bg: rgba(6, 78, 59, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-bg: rgba(6, 78, 59, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.3);
   --accent-primary: #fbbf24;
 }
 .theme-sepakbola .portal-container {
   background-image: 
-    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-  background-size: 50px 50px;
+    linear-gradient(rgba(255,255,255,0.1) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(255,255,255,0.1) 2px, transparent 2px),
+    radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.4) 100%);
+  background-size: 100px 100px, 100px 100px, 100% 100%;
+  background-position: center center;
 }
 .theme-sepakbola .portal-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%);
   border: 2px solid rgba(255,255,255,0.2);
-  border-radius: 8px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+.theme-sepakbola .portal-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: skewX(-20deg);
+  transition: 0.5s;
+}
+.theme-sepakbola .portal-card:hover::after {
+  left: 150%;
 }
 .theme-sepakbola .portal-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(251, 191, 36, 0.2);
+  transform: translateY(-8px);
   border-color: #fbbf24;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 15px rgba(251, 191, 36, 0.3);
 }
 .theme-sepakbola h1 span {
   color: #fbbf24;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 .theme-sepakbola .btn-primary {
   background: #fbbf24;
   color: #064e3b;
-  font-weight: bold;
+  font-weight: 800;
+  text-transform: uppercase;
+  border-radius: 4px;
 }
 
-/* 11. Theme: Cyberpunk Hacker */
-@keyframes glitch {
-  0% { transform: translate(0) }
-  20% { transform: translate(-2px, 2px) }
-  40% { transform: translate(-2px, -2px) }
-  60% { transform: translate(2px, 2px) }
-  80% { transform: translate(2px, -2px) }
-  100% { transform: translate(0) }
+/* 11. Theme: Cyberpunk Hacker (Terminal Breach) */
+@keyframes cyber-glitch {
+  0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 2px); }
+  20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -2px); }
+  40% { clip-path: inset(40% 0 50% 0); transform: translate(2px, 2px); }
+  60% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, -2px); }
+  80% { clip-path: inset(10% 0 70% 0); transform: translate(2px, -2px); }
+  100% { clip-path: inset(30% 0 50% 0); transform: translate(-2px, 2px); }
+}
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
 }
 .theme-cyberpunk {
-  --bg-base: #000000;
-  --text-primary: #00ff00;
-  --text-secondary: #008800;
-  --bg-card: rgba(0, 20, 0, 0.8);
+  --bg-base: #050505;
+  --text-primary: #0ff;
+  --text-secondary: #f0f;
+  --bg-card: rgba(0, 10, 10, 0.85);
   --glass-bg: rgba(0, 0, 0, 0.9);
-  --glass-border: #00ff00;
-  --accent-primary: #00ff00;
+  --glass-border: #0ff;
+  --accent-primary: #0ff;
 }
 .theme-cyberpunk .portal-container {
   font-family: 'Courier New', Courier, monospace;
+  background-image: linear-gradient(transparent 50%, rgba(0, 255, 255, 0.05) 50%);
+  background-size: 100% 4px;
+  position: relative;
+}
+.theme-cyberpunk .portal-container::after {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 10px;
+  background: rgba(0, 255, 255, 0.3);
+  animation: scanline 6s linear infinite;
+  pointer-events: none;
+  z-index: 9999;
 }
 .theme-cyberpunk .portal-card {
-  border: 1px solid #004400;
+  border: 1px solid #0ff;
+  background: var(--bg-card);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
   border-radius: 0;
   position: relative;
 }
-.theme-cyberpunk .portal-card::before {
-  content: "";
+.theme-cyberpunk .portal-card::after {
+  content: "SYS.BREACH_";
   position: absolute;
-  top: 0; left: 0; width: 100%; height: 2px;
-  background: #00ff00;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s ease;
+  bottom: -15px; right: 5px;
+  color: #f0f;
+  font-size: 0.6rem;
+  opacity: 0;
+  transition: 0.3s;
 }
 .theme-cyberpunk .portal-card:hover {
-  box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
-  border-color: #00ff00;
+  box-shadow: -5px 5px 0px rgba(0, 255, 255, 0.3), 5px -5px 0px rgba(255, 0, 255, 0.3);
+  background: rgba(0, 20, 20, 0.95);
 }
-.theme-cyberpunk .portal-card:hover::before {
-  transform: scaleX(1);
+.theme-cyberpunk .portal-card:hover::after {
+  bottom: 5px; opacity: 1;
 }
 .theme-cyberpunk h1 {
   text-transform: uppercase;
+  position: relative;
 }
 .theme-cyberpunk h1 span {
-  animation: glitch 2s infinite;
-  display: inline-block;
-  color: #ff003c;
-  text-shadow: 2px 0 #00ffff, -2px 0 #00ff00;
+  color: #f0f;
+  text-shadow: 2px 0 #0ff, -2px 0 #0ff;
 }
 .theme-cyberpunk .btn-primary {
   background: transparent;
-  color: #00ff00;
-  border: 1px solid #00ff00;
+  color: #0ff;
+  border: 1px solid #0ff;
   border-radius: 0;
+  text-transform: uppercase;
 }
 .theme-cyberpunk .btn-primary:hover {
-  background: #00ff00;
+  background: #0ff;
   color: #000;
-  box-shadow: 0 0 10px #00ff00;
+  box-shadow: 0 0 15px #0ff, inset 0 0 10px #0ff;
+}
+
+/* 12. Theme: Kawaii Cat (Lucu & Menggemaskan) */
+@keyframes tail-wag {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(15deg); }
+}
+.theme-kawaii {
+  --bg-base: #ffe4e1;
+  --text-primary: #ff69b4;
+  --text-secondary: #ffb6c1;
+  --bg-card: #ffffff;
+  --glass-bg: rgba(255, 228, 225, 0.9);
+  --glass-border: #ffb6c1;
+  --accent-primary: #ff1493;
+}
+.theme-kawaii .portal-container {
+  background-image: radial-gradient(#ffb6c1 20%, transparent 20%), radial-gradient(#ffb6c1 20%, transparent 20%);
+  background-size: 40px 40px;
+  background-position: 0 0, 20px 20px;
+}
+.theme-kawaii .portal-card {
+  border: 3px dashed #ffb6c1;
+  border-radius: 30px;
+  background: #fff;
+  box-shadow: 0 8px 15px rgba(255, 105, 180, 0.1);
+  position: relative;
+}
+.theme-kawaii .portal-card::before {
+  content: '🐾';
+  position: absolute;
+  top: -15px; right: 20px;
+  font-size: 1.5rem;
+  opacity: 0;
+  transition: 0.3s;
+}
+.theme-kawaii .portal-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  border-color: #ff69b4;
+  box-shadow: 0 12px 25px rgba(255, 105, 180, 0.3);
+}
+.theme-kawaii .portal-card:hover::before {
+  opacity: 1;
+  animation: tail-wag 0.5s ease-in-out infinite;
+}
+.theme-kawaii h1 {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+.theme-kawaii h1 span {
+  color: #ff1493;
+}
+.theme-kawaii .btn-primary {
+  background: #ff69b4;
+  color: #fff;
+  border-radius: 50px;
+  font-weight: bold;
+  border: none;
+  box-shadow: 0 4px 0 #ff1493;
+}
+.theme-kawaii .btn-primary:hover {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #ff1493;
 }
