@@ -286,6 +286,10 @@ export default function AdminDashboard() {
                     <option value="theme-neobrutalism">Neo-Brutalism (Bold & Retro)</option>
                     <option value="theme-neumorphism">Neumorphism (Soft UI)</option>
                     <option value="theme-glass-vibrant">Vibrant Glass (Warna Warni)</option>
+                    <option value="theme-one-piece">Anime One Piece (Bajak Laut)</option>
+                    <option value="theme-denny-caknan">Denny Caknan (Ambyar / Klasik Jawa)</option>
+                    <option value="theme-sepakbola">Sepakbola (Stadion Hijau)</option>
+                    <option value="theme-cyberpunk">Cyberpunk Hacker (Neon Hijau)</option>
                   </select>
                 </div>
                 
