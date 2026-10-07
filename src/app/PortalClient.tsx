@@ -11,13 +11,15 @@ export default function PortalClient({ initialMenus, initialSettings }: any) {
   
   // Audio State
   const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
-  // Menggunakan YouTube Video IDs agar tidak perlu download mp3
+  // Menggunakan file audio lokal murni (tanpa iframe pihak ketiga) untuk stabilitas & keamanan
   const themeMusicMap: Record<string, string> = {
-    'theme-one-piece': 'HRaoYuRKBaA', // One Piece We Are
-    'theme-denny-caknan': 'm8Z_d8Xo3X0', // Denny Caknan - Negoro Angin / Populer
-    'theme-sepakbola': '3ZlDZOYzYpY', // Champions League Anthem
-    'theme-cyberpunk': 'v3ZbcQG5mUQ', // Cyberpunk BGM
+    'theme-one-piece': '/audio/one-piece-we-are.mp3', 
+    'theme-denny-caknan': '/audio/denny-caknan.mp3', 
+    'theme-sepakbola': '/audio/sepakbola.mp3', 
+    'theme-cyberpunk': '/audio/cyberpunk.mp3',
+    'theme-kawaii': '/audio/kawaii-cat.mp3',
   };
   
   // Realtime State
@@ -109,12 +111,26 @@ export default function PortalClient({ initialMenus, initialSettings }: any) {
     }
   }, [searchQuery, filteredMenus.length]);
 
+  // Audio Handler
+  useEffect(() => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.play().catch(e => {
+          console.log("[SECURITY LOG] Browser memblokir eksekusi audio secara otomatis:", e);
+          setIsPlaying(false);
+        });
+      } else {
+        audioRef.current.pause();
+      }
+    }
+  }, [isPlaying]);
+
   // Reset audio when theme changes
   useEffect(() => {
     setIsPlaying(false);
   }, [settings.theme]);
 
-  const currentYoutubeId = settings.theme ? themeMusicMap[settings.theme] : null;
+  const currentAudioSrc = settings.theme ? themeMusicMap[settings.theme] : null;
 
   return (
     <div className={settings.theme || 'theme-default'} style={{ background: 'var(--bg-base)', color: 'var(--text-primary)', position: 'relative', width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -213,11 +229,11 @@ export default function PortalClient({ initialMenus, initialSettings }: any) {
       </main>
 
       {/* Floating Audio Player */}
-      {currentYoutubeId && (
+      {currentAudioSrc && (
         <div style={{ position: 'fixed', bottom: '2rem', right: '2rem', zIndex: 100, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
           {isPlaying && (
             <div className="animate-up" style={{ background: 'var(--glass-bg)', padding: '0.5rem 1rem', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 'bold', border: '1px solid var(--glass-border)', boxShadow: 'var(--glass-shadow)', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span style={{ animation: 'text-blink 1s infinite' }}>🎵</span> Now Playing
+              <span style={{ animation: 'text-blink 1s infinite' }}>🎵</span> System BGM Active
             </div>
           )}
           <button 
@@ -235,22 +251,17 @@ export default function PortalClient({ initialMenus, initialSettings }: any) {
               transition: 'all 0.3s ease',
               transform: isPlaying ? 'scale(1.05)' : 'scale(1)'
             }}
-            title={isPlaying ? "Jeda Musik" : "Putar Musik Tema"}
+            title={isPlaying ? "Jeda Musik" : "Eksekusi Musik Tema"}
           >
             {isPlaying ? '⏸️' : '▶️'}
           </button>
           
-          {isPlaying && (
-            <iframe 
-              width="10" 
-              height="10" 
-              src={`https://www.youtube.com/embed/${currentYoutubeId}?autoplay=1&loop=1&playlist=${currentYoutubeId}`} 
-              title="YouTube video player" 
-              frameBorder="0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }}
-            />
-          )}
+          <audio 
+            ref={audioRef} 
+            src={currentAudioSrc} 
+            loop 
+            style={{ display: 'none' }}
+          />
         </div>
       )}
     </div>
