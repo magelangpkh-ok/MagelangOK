@@ -1287,4 +1287,167 @@ h1, h2, h3, h4 {
   border-left: 3px solid var(--accent-primary);
 }
 
+/* 8. Theme: Anime One Piece */
+.theme-one-piece {
+  --bg-base: linear-gradient(135deg, #001f3f 0%, #003366 50%, #00509e 100%);
+  --text-primary: #ffcc00;
+  --text-secondary: #fffae6;
+  --bg-card: rgba(20, 30, 48, 0.7);
+  --glass-bg: rgba(0, 51, 102, 0.6);
+  --glass-border: rgba(255, 204, 0, 0.4);
+  --accent-primary: #e60000;
+  background-size: cover;
+  background-position: center;
+}
+.theme-one-piece .portal-card {
+  border: 2px solid var(--glass-border);
+  border-radius: 12px;
+  background-image: url('data:image/svg+xml;utf8,<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="2" fill="rgba(255, 204, 0, 0.2)"/></svg>');
+}
+.theme-one-piece .portal-card:hover {
+  transform: scale(1.03) rotate(-1deg);
+  box-shadow: 0 10px 20px rgba(230, 0, 0, 0.4);
+  border-color: #ffcc00;
+}
+.theme-one-piece h1 span {
+  color: #e60000;
+  text-shadow: 2px 2px 0px #ffcc00;
+}
+.theme-one-piece .btn-primary {
+  background: linear-gradient(45deg, #e60000, #990000);
+  color: #ffcc00;
+  border: 2px solid #ffcc00;
+  text-transform: uppercase;
+  font-weight: 800;
+}
 
+/* 9. Theme: Denny Caknan (Ambyar / Javanese Classic) */
+.theme-denny-caknan {
+  --bg-base: linear-gradient(120deg, #4b3621 0%, #3e2723 100%);
+  --text-primary: #f5deb3;
+  --text-secondary: #d2b48c;
+  --bg-card: rgba(62, 39, 35, 0.8);
+  --glass-bg: rgba(75, 54, 33, 0.7);
+  --glass-border: rgba(245, 222, 179, 0.3);
+  --accent-primary: #8b4513;
+}
+.theme-denny-caknan .portal-card {
+  border-radius: 4px;
+  border: 1px solid var(--glass-border);
+  background: repeating-linear-gradient(45deg, rgba(245,222,179,0.03), rgba(245,222,179,0.03) 10px, transparent 10px, transparent 20px);
+  background-color: var(--bg-card);
+}
+.theme-denny-caknan .portal-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  border-color: #f5deb3;
+}
+.theme-denny-caknan h1 {
+  font-family: 'Georgia', serif;
+}
+.theme-denny-caknan h1 span {
+  color: #d2b48c;
+  font-style: italic;
+}
+.theme-denny-caknan .btn-primary {
+  background: #8b4513;
+  color: #f5deb3;
+  border: 1px solid #f5deb3;
+}
+
+/* 10. Theme: Sepakbola (Football) */
+.theme-sepakbola {
+  --bg-base: linear-gradient(to bottom, #115e59, #064e3b);
+  --text-primary: #ffffff;
+  --text-secondary: #a7f3d0;
+  --bg-card: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(6, 78, 59, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --accent-primary: #fbbf24;
+}
+.theme-sepakbola .portal-container {
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+.theme-sepakbola .portal-card {
+  border: 2px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+}
+.theme-sepakbola .portal-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(251, 191, 36, 0.2);
+  border-color: #fbbf24;
+}
+.theme-sepakbola h1 span {
+  color: #fbbf24;
+}
+.theme-sepakbola .btn-primary {
+  background: #fbbf24;
+  color: #064e3b;
+  font-weight: bold;
+}
+
+/* 11. Theme: Cyberpunk Hacker */
+@keyframes glitch {
+  0% { transform: translate(0) }
+  20% { transform: translate(-2px, 2px) }
+  40% { transform: translate(-2px, -2px) }
+  60% { transform: translate(2px, 2px) }
+  80% { transform: translate(2px, -2px) }
+  100% { transform: translate(0) }
+}
+.theme-cyberpunk {
+  --bg-base: #000000;
+  --text-primary: #00ff00;
+  --text-secondary: #008800;
+  --bg-card: rgba(0, 20, 0, 0.8);
+  --glass-bg: rgba(0, 0, 0, 0.9);
+  --glass-border: #00ff00;
+  --accent-primary: #00ff00;
+}
+.theme-cyberpunk .portal-container {
+  font-family: 'Courier New', Courier, monospace;
+}
+.theme-cyberpunk .portal-card {
+  border: 1px solid #004400;
+  border-radius: 0;
+  position: relative;
+}
+.theme-cyberpunk .portal-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 2px;
+  background: #00ff00;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.theme-cyberpunk .portal-card:hover {
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+  border-color: #00ff00;
+}
+.theme-cyberpunk .portal-card:hover::before {
+  transform: scaleX(1);
+}
+.theme-cyberpunk h1 {
+  text-transform: uppercase;
+}
+.theme-cyberpunk h1 span {
+  animation: glitch 2s infinite;
+  display: inline-block;
+  color: #ff003c;
+  text-shadow: 2px 0 #00ffff, -2px 0 #00ff00;
+}
+.theme-cyberpunk .btn-primary {
+  background: transparent;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  border-radius: 0;
+}
+.theme-cyberpunk .btn-primary:hover {
+  background: #00ff00;
+  color: #000;
+  box-shadow: 0 0 10px #00ff00;
+}
