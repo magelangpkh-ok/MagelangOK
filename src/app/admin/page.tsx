@@ -291,6 +291,10 @@ export default function AdminDashboard() {
                     <option value="theme-sepakbola">Sepakbola (Tactical Pitch)</option>
                     <option value="theme-cyberpunk">Cyberpunk Hacker (Terminal Breach)</option>
                     <option value="theme-kawaii">Kawaii Cat (Lucu & Menggemaskan)</option>
+                    <option value="theme-algorithm">The Algorithm (Retro Pop-Art)</option>
+                    <option value="theme-pop-folders">Pop Folders (Neobrutalism UI)</option>
+                    <option value="theme-summer-collage">Summer Collage (Sandy & Salty)</option>
+                    <option value="theme-pixel-playverse">Play Verse (8-Bit Pixel)</option>
                   </select>
                 </div>
                 
