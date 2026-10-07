@@ -286,10 +286,11 @@ export default function AdminDashboard() {
                     <option value="theme-neobrutalism">Neo-Brutalism (Bold & Retro)</option>
                     <option value="theme-neumorphism">Neumorphism (Soft UI)</option>
                     <option value="theme-glass-vibrant">Vibrant Glass (Warna Warni)</option>
-                    <option value="theme-one-piece">Anime One Piece (Bajak Laut)</option>
-                    <option value="theme-denny-caknan">Denny Caknan (Ambyar / Klasik Jawa)</option>
-                    <option value="theme-sepakbola">Sepakbola (Stadion Hijau)</option>
-                    <option value="theme-cyberpunk">Cyberpunk Hacker (Neon Hijau)</option>
+                    <option value="theme-one-piece">Anime One Piece (Bounty Hunter)</option>
+                    <option value="theme-denny-caknan">Denny Caknan (Ambyar Acoustic)</option>
+                    <option value="theme-sepakbola">Sepakbola (Tactical Pitch)</option>
+                    <option value="theme-cyberpunk">Cyberpunk Hacker (Terminal Breach)</option>
+                    <option value="theme-kawaii">Kawaii Cat (Lucu & Menggemaskan)</option>
                   </select>
                 </div>
                 
