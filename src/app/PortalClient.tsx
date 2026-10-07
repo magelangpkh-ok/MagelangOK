@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { supabase } from '@/lib/supabase';
 import CyberRobot from '@/components/CyberRobot';
 
@@ -8,6 +8,17 @@ export default function PortalClient({ initialMenus, initialSettings }: any) {
   const [searchQuery, setSearchQuery] = useState('');
   const [robotState, setRobotState] = useState<'idle'|'typing'|'success'|'error'>('idle');
   const [greeting, setGreeting] = useState({ text: 'Selamat Datang', emoji: '👋' });
+  
+  // Audio State
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  // Menggunakan YouTube Video IDs agar tidak perlu download mp3
+  const themeMusicMap: Record<string, string> = {
+    'theme-one-piece': 'HRaoYuRKBaA', // One Piece We Are
+    'theme-denny-caknan': 'm8Z_d8Xo3X0', // Denny Caknan - Negoro Angin / Populer
+    'theme-sepakbola': '3ZlDZOYzYpY', // Champions League Anthem
+    'theme-cyberpunk': 'v3ZbcQG5mUQ', // Cyberpunk BGM
+  };
   
   // Realtime State
   const [menus, setMenus] = useState(initialMenus || []);
@@ -97,6 +108,13 @@ export default function PortalClient({ initialMenus, initialSettings }: any) {
       setRobotState('idle');
     }
   }, [searchQuery, filteredMenus.length]);
+
+  // Reset audio when theme changes
+  useEffect(() => {
+    setIsPlaying(false);
+  }, [settings.theme]);
+
+  const currentYoutubeId = settings.theme ? themeMusicMap[settings.theme] : null;
 
   return (
     <div className={settings.theme || 'theme-default'} style={{ background: 'var(--bg-base)', color: 'var(--text-primary)', position: 'relative', width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -193,6 +211,48 @@ export default function PortalClient({ initialMenus, initialSettings }: any) {
           )}
         </div>
       </main>
+
+      {/* Floating Audio Player */}
+      {currentYoutubeId && (
+        <div style={{ position: 'fixed', bottom: '2rem', right: '2rem', zIndex: 100, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+          {isPlaying && (
+            <div className="animate-up" style={{ background: 'var(--glass-bg)', padding: '0.5rem 1rem', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 'bold', border: '1px solid var(--glass-border)', boxShadow: 'var(--glass-shadow)', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ animation: 'text-blink 1s infinite' }}>🎵</span> Now Playing
+            </div>
+          )}
+          <button 
+            onClick={() => setIsPlaying(!isPlaying)}
+            className="btn btn-primary"
+            style={{ 
+              borderRadius: '50px', 
+              width: '60px', 
+              height: '60px', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              fontSize: '1.5rem', 
+              boxShadow: '0 8px 20px rgba(0,0,0,0.4)',
+              transition: 'all 0.3s ease',
+              transform: isPlaying ? 'scale(1.05)' : 'scale(1)'
+            }}
+            title={isPlaying ? "Jeda Musik" : "Putar Musik Tema"}
+          >
+            {isPlaying ? '⏸️' : '▶️'}
+          </button>
+          
+          {isPlaying && (
+            <iframe 
+              width="10" 
+              height="10" 
+              src={`https://www.youtube.com/embed/${currentYoutubeId}?autoplay=1&loop=1&playlist=${currentYoutubeId}`} 
+              title="YouTube video player" 
+              frameBorder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 }
