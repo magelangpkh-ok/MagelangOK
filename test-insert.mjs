@@ -1,8 +1,24 @@
 import { createClient } from '@supabase/supabase-js';
+import fs from 'fs';
 
-const supabaseUrl = 'https://hhzqyhtastxvkevahwae.supabase.co';
-const supabaseAnonKey = 'sb_publishable_R7kbY0xhUq8E-ozqqV3arw_tATyJpKr';
+let supabaseUrl = 'https://urfubdurxnykqecnalum.supabase.co';
+let supabaseAnonKey = '';
+
+try {
+  const envContent = fs.readFileSync('.env.local', 'utf-8');
+  for (const line of envContent.split('\n')) {
+    const trimmed = line.trim();
+    if (trimmed.startsWith('NEXT_PUBLIC_SUPABASE_URL=')) {
+      supabaseUrl = trimmed.replace('NEXT_PUBLIC_SUPABASE_URL=', '').trim();
+    }
+    if (trimmed.startsWith('NEXT_PUBLIC_SUPABASE_ANON_KEY=')) {
+      supabaseAnonKey = trimmed.replace('NEXT_PUBLIC_SUPABASE_ANON_KEY=', '').trim();
+    }
+  }
+} catch (e) {}
+
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
 
 async function injectData() {
   console.log("Memulai Injeksi Data...");

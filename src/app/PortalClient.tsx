@@ -20,6 +20,10 @@ export default function PortalClient({ initialMenus, initialSettings }: any) {
     'theme-sepakbola': '/audio/sepakbola.mp3', 
     'theme-cyberpunk': '/audio/cyberpunk.mp3',
     'theme-kawaii': '/audio/kawaii-cat.mp3',
+    'theme-algorithm': '/audio/the-algorithm.mp3',
+    'theme-pop-folders': '/audio/pop-folders.mp3',
+    'theme-summer-collage': '/audio/summer-collage.mp3',
+    'theme-pixel-playverse': '/audio/pixel-playverse.mp3',
   };
   
   // Realtime State
@@ -51,7 +55,11 @@ export default function PortalClient({ initialMenus, initialSettings }: any) {
     const fetchLatestData = async () => {
       const { data: m } = await supabase.from('menus').select('*').order('order_index', { ascending: true });
       const { data: sm } = await supabase.from('submenus').select('*').order('order_index', { ascending: true });
-      const { data: s } = await supabase.from('portal_settings').select('*').single();
+      let { data: s } = await supabase.from('portal_settings').select('*').single();
+      if (!s) {
+        const { data: fallbackS } = await supabase.from('portal_settings_rows').select('*').single();
+        if (fallbackS) s = fallbackS;
+      }
       
       if (m && sm) {
         const formattedData = m.map(menu => ({

@@ -7,7 +7,12 @@ export default async function Home() {
   // Fetch directly from Supabase for zero latency via CDN
   const { data: menus } = await supabase.from('menus').select('*').order('order_index', { ascending: true });
   const { data: submenus } = await supabase.from('submenus').select('*').order('order_index', { ascending: true });
-  const { data: settingsRow } = await supabase.from('portal_settings').select('*').single();
+  
+  let { data: settingsRow } = await supabase.from('portal_settings').select('*').single();
+  if (!settingsRow) {
+    const { data: fallbackRow } = await supabase.from('portal_settings_rows').select('*').single();
+    if (fallbackRow) settingsRow = fallbackRow;
+  }
   
   // Format data
   const formattedData = (menus || []).map(menu => ({

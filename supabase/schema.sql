@@ -1,47 +1,42 @@
--- Schema for MagelangOK Navigation and Content
+-- ====================================================================
+-- Script Perbaikan Izin (GRANT & RLS) & Penyesuaian Nama Tabel
+-- JANGAN DROP TABLE (Agar data yang sudah diimport TIDAK hilang!)
+-- ====================================================================
 
--- 1. Menus Table (Top level navigation)
-CREATE TABLE public.menus (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    title VARCHAR(255) NOT NULL,
-    url VARCHAR(255) DEFAULT '#',
-    icon VARCHAR(255),
-    order_index INTEGER DEFAULT 0,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
-);
+-- 1. Ubah nama portal_settings_rows menjadi portal_settings (jika masih bernama portal_settings_rows)
+DO $$
+BEGIN
+    IF EXISTS (
+        SELECT 1 FROM information_schema.tables 
+        WHERE table_schema = 'public' AND table_name = 'portal_settings_rows'
+    ) THEN
+        ALTER TABLE public.portal_settings_rows RENAME TO portal_settings;
+    END IF;
+END $$;
 
--- 2. Submenus Table (Dropdown items)
-CREATE TABLE public.submenus (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    menu_id UUID REFERENCES public.menus(id) ON DELETE CASCADE,
-    title VARCHAR(255) NOT NULL,
-    url VARCHAR(255) NOT NULL,
-    icon VARCHAR(255),
-    order_index INTEGER DEFAULT 0,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
-);
+-- 2. Berikan Izin Akses (GRANT) ke role anon dan authenticated
+GRANT USAGE ON SCHEMA public TO anon, authenticated;
+GRANT ALL ON ALL TABLES IN SCHEMA public TO anon, authenticated, service_role;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO anon, authenticated, service_role;
 
--- 3. Insert Initial Data
-INSERT INTO public.menus (title, url, order_index) VALUES 
-('Beranda', '/', 1),
-('Tentang PKH', '#', 2),
-('Data Bantuan', '/data', 3),
-('Kontak', '/kontak', 4);
-
--- Note: To link submenus, you will need the generated UUIDs from the menus table.
--- Example:
--- INSERT INTO public.submenus (menu_id, title, url, order_index) VALUES 
--- ((SELECT id FROM public.menus WHERE title = 'Tentang PKH'), 'Visi & Misi', '/visi-misi', 1),
--- ((SELECT id FROM public.menus WHERE title = 'Tentang PKH'), 'Struktur Organisasi', '/struktur', 2);
-
--- Set up Row Level Security (RLS)
--- Allow public read access to menus and submenus
+-- 3. Aktifkan Row Level Security (RLS) dan Berikan Policy Akses Penuh
 ALTER TABLE public.menus ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Public read access for menus" ON public.menus FOR SELECT USING (true);
-
 ALTER TABLE public.submenus ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Public read access for submenus" ON public.submenus FOR SELECT USING (true);
+ALTER TABLE public.portal_settings ENABLE ROW LEVEL SECURITY;
 
--- Allow all operations for authenticated users (admin panel)
-CREATE POLICY "Admin full access menus" ON public.menus FOR ALL USING (auth.role() = 'authenticated');
-CREATE POLICY "Admin full access submenus" ON public.submenus FOR ALL USING (auth.role() = 'authenticated');
+DROP POLICY IF EXISTS "Allow public access menus" ON public.menus;
+DROP POLICY IF EXISTS "Allow public access submenus" ON public.submenus;
+DROP POLICY IF EXISTS "Allow public access portal_settings" ON public.portal_settings;
+
+CREATE POLICY "Allow public access menus" ON public.menus FOR ALL TO anon, authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Allow public access submenus" ON public.submenus FOR ALL TO anon, authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Allow public access portal_settings" ON public.portal_settings FOR ALL TO anon, authenticated USING (true) WITH CHECK (true);
+
+-- 4. Aktifkan Supabase Realtime agar perubahan menu langsung update di browser
+DO $$
+BEGIN
+    ALTER PUBLICATION supabase_realtime ADD TABLE public.menus, public.submenus, public.portal_settings;
+EXCEPTION
+    WHEN duplicate_object THEN NULL;
+END $$;

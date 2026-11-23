@@ -5,11 +5,23 @@ export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const { data, error } = await supabase
+    let { data, error } = await supabase
       .from('portal_settings')
       .select('*')
       .eq('id', 1)
       .single();
+
+    if (error && error.code !== 'PGRST116') {
+      const fallback = await supabase
+        .from('portal_settings_rows')
+        .select('*')
+        .eq('id', 1)
+        .single();
+      if (!fallback.error) {
+        data = fallback.data;
+        error = null;
+      }
+    }
 
     if (error) {
       if (error.code === 'PGRST116') {
@@ -29,7 +41,7 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     
-    const { error } = await supabase
+    let { error } = await supabase
       .from('portal_settings')
       .upsert({
         id: 1,
@@ -40,6 +52,21 @@ export async function POST(request: Request) {
         broadcast_text: body.broadcast_text,
         theme: body.theme || 'theme-default'
       });
+
+    if (error) {
+      const fallback = await supabase
+        .from('portal_settings_rows')
+        .upsert({
+          id: 1,
+          title: body.title,
+          highlight: body.highlight,
+          subtitle: body.subtitle,
+          broadcast_active: body.broadcast_active,
+          broadcast_text: body.broadcast_text,
+          theme: body.theme || 'theme-default'
+        });
+      if (!fallback.error) error = null;
+    }
 
     if (error) throw error;
 
