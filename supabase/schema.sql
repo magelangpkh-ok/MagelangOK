@@ -40,3 +40,34 @@ BEGIN
 EXCEPTION
     WHEN duplicate_object THEN NULL;
 END $$;
+
+-- 5. Hapus duplikasi jika tabel ter-import berulang kali
+ALTER TABLE public.menus REPLICA IDENTITY FULL;
+ALTER TABLE public.submenus REPLICA IDENTITY FULL;
+
+DELETE FROM public.submenus a
+USING public.submenus b
+WHERE a.ctid > b.ctid 
+  AND a.menu_id = b.menu_id 
+  AND a.title = b.title;
+
+DELETE FROM public.menus a
+USING public.menus b
+WHERE a.ctid > b.ctid 
+  AND a.title = b.title;
+
+-- 6. Pasang PRIMARY KEY agar tidak pernah ada duplikat lagi ke depan
+DO $$
+BEGIN
+    ALTER TABLE public.menus ADD CONSTRAINT menus_pkey PRIMARY KEY (id);
+EXCEPTION
+    WHEN others THEN NULL;
+END $$;
+
+DO $$
+BEGIN
+    ALTER TABLE public.submenus ADD CONSTRAINT submenus_pkey PRIMARY KEY (id);
+EXCEPTION
+    WHEN others THEN NULL;
+END $$;
+

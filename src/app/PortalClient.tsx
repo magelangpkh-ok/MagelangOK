@@ -62,10 +62,26 @@ export default function PortalClient({ initialMenus, initialSettings }: any) {
       }
       
       if (m && sm) {
-        const formattedData = m.map(menu => ({
-          ...menu,
-          submenus: sm.filter(sub => sub.menu_id === menu.id)
-        }));
+        const uniqueMenusMap = new Map<string, any>();
+        m.forEach((menu: any) => {
+          if (!uniqueMenusMap.has(menu.title)) {
+            uniqueMenusMap.set(menu.title, menu);
+          }
+        });
+
+        const formattedData = Array.from(uniqueMenusMap.values()).map((menu: any) => {
+          const rawSubs = sm.filter((sub: any) => sub.menu_id === menu.id);
+          const uniqueSubsMap = new Map<string, any>();
+          rawSubs.forEach((s: any) => {
+            if (!uniqueSubsMap.has(s.title)) {
+              uniqueSubsMap.set(s.title, s);
+            }
+          });
+          return {
+            ...menu,
+            submenus: Array.from(uniqueSubsMap.values())
+          };
+        });
         setMenus(formattedData);
       }
       if (s) {

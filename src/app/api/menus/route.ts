@@ -19,25 +19,42 @@ export async function GET() {
 
     if (subError) throw subError;
 
-    // Combine
-    const formattedData = menus.map(menu => ({
-      id: menu.id,
-      title: menu.title,
-      url: menu.url,
-      db_url: menu.db_url,
-      icon: menu.icon,
-      order_index: menu.order_index,
-      is_active: menu.is_active,
-      submenus: submenus.filter(sub => sub.menu_id === menu.id).map(sub => ({
-        id: sub.id,
-        title: sub.title,
-        url: sub.url,
-        db_url: sub.db_url,
-        icon: sub.icon,
-        order_index: sub.order_index,
-        is_active: sub.is_active
-      }))
-    }));
+    // Combine & Deduplikasi
+    const uniqueMenusMap = new Map<string, any>();
+    menus.forEach(menu => {
+      if (!uniqueMenusMap.has(menu.title)) {
+        uniqueMenusMap.set(menu.title, menu);
+      }
+    });
+
+    const formattedData = Array.from(uniqueMenusMap.values()).map(menu => {
+      const rawSubs = submenus.filter(sub => sub.menu_id === menu.id);
+      const uniqueSubsMap = new Map<string, any>();
+      rawSubs.forEach(sub => {
+        if (!uniqueSubsMap.has(sub.title)) {
+          uniqueSubsMap.set(sub.title, {
+            id: sub.id,
+            title: sub.title,
+            url: sub.url,
+            db_url: sub.db_url,
+            icon: sub.icon,
+            order_index: sub.order_index,
+            is_active: sub.is_active
+          });
+        }
+      });
+
+      return {
+        id: menu.id,
+        title: menu.title,
+        url: menu.url,
+        db_url: menu.db_url,
+        icon: menu.icon,
+        order_index: menu.order_index,
+        is_active: menu.is_active,
+        submenus: Array.from(uniqueSubsMap.values())
+      };
+    });
 
     return NextResponse.json({ data: formattedData }, { status: 200 });
   } catch (error: any) {
